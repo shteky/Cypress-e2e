@@ -7,7 +7,7 @@ const { empty } = require('check-more-types')
 beforeEach(() => {
     cy.visit(Cypress.env('demoQA'))
     helpers.click(homepage.bookStoreApp)
-    cy.BookStorelogin('test1', 'P@ssw0rd-1');
+    cy.BookStorelogin('test1', 'P@ssw0rd-1')
 })
 
 // list of books
@@ -25,23 +25,22 @@ describe('Books listing page', ()=> {
     it('Books listings', ()=> { 
 
         assert.elementVisible(bookstore.store.listing);
-        cy.get(bookstore.store.listing).children().should('have.length', 10);
+        cy.get(bookstore.store.listing).children().should('have.length', 10)
     })
 
     it('Search for book', ()=> { 
-
-        //Verifies available books based on search
-        for (let index = 0; index < books.length; index ++) {
-            helpers.typeText(bookstore.store.searchBox, books[index])
-            assert.text('.action-buttons > .mr-2', books[index]);
-            helpers.clearText(bookstore.store.searchBox);
-        }
-    })
+        context('', () => {
+            for (let index = 0; index < books.length; index ++) {
+                helpers.typeText(bookstore.store.searchBox, books[index])
+                assert.text('.action-buttons > .mr-2', books[index])
+                helpers.clearText(bookstore.store.searchBox)
+            }  
+        })
+        })
 
     it('cross-origin', ()=> {
-        cy.visit('https://dev.bg');
-        cy.visit('https://filiphric.com');
-        cy.visit('https://www.jobs.bg');
-        cy.visit('https://docs.cypress.io');
+        //cy.visit('https://dev.bg')
+        cy.visit('https://filiphric.com')
+        cy.visit('https://docs.cypress.io')
     })
 })
